@@ -14,4 +14,9 @@ provider "minikube" {
 resource "minikube_cluster" "local" {
   driver       = "docker"
   cluster_name = "task-01-cluster"
+  addons = [
+    "default-storageclass",
+    "storage-provisioner"
+  ]
+  nodes = 2
 }

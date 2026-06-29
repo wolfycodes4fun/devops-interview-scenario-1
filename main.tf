@@ -19,4 +19,5 @@ resource "minikube_cluster" "local" {
     "storage-provisioner"
   ]
   nodes = 2
+  cni = "calico"
 }

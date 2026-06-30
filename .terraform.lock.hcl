@@ -6,6 +6,7 @@ provider "registry.terraform.io/scott-the-programmer/minikube" {
   constraints = "0.6.0"
   hashes = [
     "h1:7ZqValQq2azb9uh+6SE+lILSiK8uggh1YJ+1Hq9ZXng=",
+    "h1:b2DJdavTUmUbOLsHrw+A9Q/yfn4ZAUjvcGL8vi9wWbk=",
     "zh:07384be2c110a8727f8a42abb387c5bb715e984ce5394e947a628ac62d9a6288",
     "zh:1c3e89cf19118fc07d7b04257251fc9897e722c16e0a0df7b07fcd261f8c12e7",
     "zh:2aa27ced99cf412f48b6f0893542133b2d35107d3863b883025ee5ed316728dd",

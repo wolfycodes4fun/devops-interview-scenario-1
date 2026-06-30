@@ -1,0 +1,42 @@
+---
+- name: End-to-End automation for infrastructure provisioning
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    terraform_code_dir: "../"
+    helm_chart_dir: "../node-webapp"
+    application_namespace: "default"
+    monitoring_namespace: "monitoring"
+  tasks:
+    - name: Initialize and appy Terraform to provision a Minikube cluster
+      community.general.terraform:
+        project_path: "{{ terraform_code_dir }}"
+        force_init: true
+      register: tf_output
+      async: 600
+      poll: 20
+    
+    - name: Debug Terraform output
+      ansible.builtin.debug:
+        var: tf_output.stdout
+    
+    - name: Deploy Node.js dummy application via Helm
+      kubernetes.core.helm:
+        release_name: wolverine
+        chart_ref: "{{ helm_chart_dir  }}"
+        release_namespace: "{{  application_namespace }}"
+    
+    - name: Add Prometheus Helm repository
+      kubernetes.core.helm_repository:
+        name: prometheus-community
+        repo_url: "https://prometheus-community.github.io/helm-charts"
+    
+    - name: Deploy kube-prometheus-stack with Helm
+      kubernetes.core.helm:
+        name: monitoring
+        chart_ref: prometheus-community/kube-prometheus-stack
+        release_namespace: "{{ monitoring_namespace }}"
+        values_files:
+          - "./monitoring-values.yaml"
+        

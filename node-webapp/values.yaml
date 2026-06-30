@@ -2,8 +2,8 @@ replicaCount: 2
 
 image: 
   repository: wolfycodes4fun/node-webapp
-  tag: "v1"
-  pullPolicy: Never
+  tag: "v2"
+  pullPolicy: Always
 
 service:
   type: ClusterIP

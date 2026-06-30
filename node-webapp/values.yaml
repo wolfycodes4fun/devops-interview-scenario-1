@@ -1,0 +1,10 @@
+replicaCount: 2
+
+image: 
+  repository: wolfycodes4fun/node-webapp
+  tag: "v1"
+  pullPolicy: Never
+
+service:
+  type: ClusterIP
+  port: 80

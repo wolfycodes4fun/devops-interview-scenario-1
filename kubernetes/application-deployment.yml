@@ -19,6 +19,13 @@ spec:
       - name: node-webapp
         image: wolfycodes4fun/node-webapp:v2
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
           - name: http
             containerPort: 5000

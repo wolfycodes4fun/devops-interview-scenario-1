@@ -8,6 +8,8 @@
     helm_chart_dir: "../node-webapp"
     application_namespace: "default"
     monitoring_namespace: "monitoring"
+    monitoring_values_file: "../kubernetes/monitoring-values.yml"
+    helm_release_name: "wolverine"
   tasks:
     - name: Initialize and appy Terraform to provision a Minikube cluster
       community.general.terraform:
@@ -23,7 +25,7 @@
     
     - name: Deploy Node.js dummy application via Helm
       kubernetes.core.helm:
-        release_name: wolverine
+        release_name: "{{ helm_release_name }}"
         chart_ref: "{{ helm_chart_dir  }}"
         release_namespace: "{{  application_namespace }}"
     
@@ -38,5 +40,5 @@
         chart_ref: prometheus-community/kube-prometheus-stack
         release_namespace: "{{ monitoring_namespace }}"
         values_files:
-          - "./monitoring-values.yaml"
+          - "{{ monitoring_values_file }}"
         

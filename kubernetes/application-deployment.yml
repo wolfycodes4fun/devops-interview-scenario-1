@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-nodejs-deployment
+  labels:
+    app: node-webapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-webapp
+  template:
+    metadata:
+      labels:
+        app: node-webapp
+    spec:
+      containers:
+      - name: node-webapp
+        image: wolfycodes4fun/node-webapp:v2
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 5000
+            protocol: TCP
+        envFrom:
+          - configMapRef:
+              name: backend-config-map

@@ -9,8 +9,11 @@ service:
   type: ClusterIP
   port: 80
 
-observability:
-  namespace: monitoring
+application:
+  namespace: webapp
+
+appConfig:
+  APP_NAME: "dummy-webapp"
 
 resources:
   requests:

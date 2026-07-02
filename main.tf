@@ -19,5 +19,24 @@ resource "minikube_cluster" "local" {
     "storage-provisioner"
   ]
   nodes = 2
-  cni = "calico"
+  cni   = "calico"
+}
+
+provider "kubernetes" {
+  host                   = minikube_cluster.local.host
+  client_certificate     = minikube_cluster.local.client_certificate
+  client_key             = minikube_cluster.local.client_key
+  cluster_ca_certificate = minikube_cluster.local.cluster_ca_certificate
+}
+
+variable "namespaces_to_create" {
+  type    = list(string)
+  default = ["webapp", "monitoring"]
+}
+resource "kubernetes_namespace_v1" "namespaces" {
+  for_each = toset(var.namespaces_to_create)
+
+  metadata {
+    name = each.value
+  }
 }

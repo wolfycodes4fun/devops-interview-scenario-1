@@ -12,6 +12,9 @@ service:
 observability:
   namespace: monitoring
 
+application:
+  namespace: webapp
+
 resources:
   requests:
     memory: "64Mi"
